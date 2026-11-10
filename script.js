@@ -2,35 +2,35 @@ let estadoElement = document.querySelector('span')
 
 
 let conjunto_de_estados = {
-	"0": "Clear sky",
-	"1": "Mainly clear",
-	"2": "Partly cloudy",
-	"3": "Overcast",
-	"45": "Fog",
-	"48": "Depositing rime fog",
-	"51": "Light drizzle",
-	"53": "Moderate drizzle",
-	"55": "Dense drizzle",
-	"56": "Light freezing drizzle",
-	"57": "Dense freezing drizzle",
-	"61": "Slight rain",
-	"63": "Moderate rain",
-	"65": "Heavy rain",
-	"66": "Light freezing rain",
-	"67": "Heavy freezing rain",
-	"71": "Slight snowfall",
-	"73": "Moderate snowfall",
-	"75": "Heavy snowfall",
-	"77": "Snow grains",
-	"80": "Slight rain showers",
-	"81": "Moderate rain showers",
-	"82": "Violent rain showers",
-	"85": "Slight snow showers",
-	"86": "Heavy snow showers",
-	"95": "Thunderstorm",
-	"96": "Thunderstorm with slight hail",
-	"97": "Heavy thunderstorm",
-	"99": "Thunderstorm with heavy hail"
+	"0": "Cielo despejado",
+	"1": "Principalmente despejado",
+	"2": "Parcialmente nublado",
+	"3": "Cubierto",
+	"45": "Niebla",
+	"48": "Niebla con depósito de cencellada",
+	"51": "Llovizna ligera",
+	"53": "Llovizna moderada",
+	"55": "Llovizna densa",
+	"56": "Llovizna helada ligera",
+	"57": "Llovizna helada densa",
+	"61": "Lluvia ligera",
+	"63": "Lluvia moderada",
+	"65": "Lluvia fuerte",
+	"66": "Lluvia helada ligera",
+	"67": "Lluvia helada fuerte",
+	"71": "Nevada ligera",
+	"73": "Nevada moderada",
+	"75": "Nevada fuerte",
+	"77": "Cinco por ciento / Granos de nieve",
+	"80": "Chubascos de lluvia ligeros",
+	"81": "Chubascos de lluvia moderados",
+	"82": "Chubascos de lluvia violentos",
+	"85": "Chubascos de nieve ligeros",
+	"86": "Chubascos de nieve fuertes",
+	"95": "Tormenta",
+	"96": "Tormenta con granizo ligero",
+	"97": "Tormenta fuerte",
+	"99": "Tormenta con granizo fuerte"
 }
 
 
@@ -50,10 +50,6 @@ const obtenerDatos = async () => {
     let estado = conjunto_de_estados[codigo_estado]
 
     estadoElement.textContent = estado
-
-
-
-
 
 
   } catch (error) {
