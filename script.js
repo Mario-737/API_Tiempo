@@ -1,43 +1,134 @@
-let ciudadElement = document.querySelector('#ciudad')
-let temperaturaElement = document.querySelector('#temperatura')
-let humedadElement = document.querySelector('#humedad')
-let vientoElement = document.querySelector('#viento')
-let horaElement = document.querySelector('#hora')
-let estadoElement = document.querySelector('#estado')
-let selectElement = document.querySelector('select')
+const ciudadElement = document.querySelector('#ciudad')
+const temperaturaElement = document.querySelector('#temperatura')
+const humedadElement = document.querySelector('#humedad')
+const vientoElement = document.querySelector('#viento')
+const horaElement = document.querySelector('#hora')
+const estadoElement = document.querySelector('#estado')
+const selectElement = document.querySelector('select')
+const imgElement = document.querySelector('.icono')
+
+
 
 
 const conjunto_de_estados = {
-    "0": "Cielo despejado",
-    "1": "Principalmente despejado",
-    "2": "Parcialmente nublado",
-    "3": "Cubierto",
-    "45": "Niebla",
-    "48": "Niebla con depósito de cencellada",
-    "51": "Llovizna ligera",
-    "53": "Llovizna moderada",
-    "55": "Llovizna densa",
-    "56": "Llovizna helada ligera",
-    "57": "Llovizna helada densa",
-    "61": "Lluvia ligera",
-    "63": "Lluvia moderada",
-    "65": "Lluvia fuerte",
-    "66": "Lluvia helada ligera",
-    "67": "Lluvia helada fuerte",
-    "71": "Nevada ligera",
-    "73": "Nevada moderada",
-    "75": "Nevada fuerte",
-    "77": "Cinco por ciento / Granos de nieve",
-    "80": "Chubascos de lluvia ligeros",
-    "81": "Chubascos de lluvia moderados",
-    "82": "Chubascos de lluvia violentos",
-    "85": "Chubascos de nieve ligeros",
-    "86": "Chubascos de nieve fuertes",
-    "95": "Tormenta",
-    "96": "Tormenta con granizo ligero",
-    "97": "Tormenta fuerte",
-    "99": "Tormenta con granizo fuerte"
-}
+    "0": {
+        texto: "Cielo despejado",
+        icono: "clear-day.svg"
+    },
+    "1": {
+        texto: "Principalmente despejado",
+        icono: "mostly-clear-day.svg"
+    },
+    "2": {
+        texto: "Parcialmente nublado",
+        icono: "partly-cloudy-day.svg"
+    },
+    "3": {
+        texto: "Cubierto",
+        icono: "overcast.svg"
+    },
+    "45": {
+        texto: "Niebla",
+        icono: "fog.svg"
+    },
+    "48": {
+        texto: "Niebla con depósito de cencellada",
+        icono: "fog.svg"
+    },
+    "51": {
+        texto: "Llovizna ligera",
+        icono: "drizzle.svg"
+    },
+    "53": {
+        texto: "Llovizna moderada",
+        icono: "drizzle.svg"
+    },
+    "55": {
+        texto: "Llovizna densa",
+        icono: "drizzle.svg"
+    },
+    "56": {
+        texto: "Llovizna helada ligera",
+        icono: "freezing-drizzle.svg"
+    },
+    "57": {
+        texto: "Llovizna helada densa",
+        icono: "freezing-drizzle.svg"
+    },
+    "61": {
+        texto: "Lluvia ligera",
+        icono: "@partly-cloudy-day-rain.svg"
+    },
+    "63": {
+        texto: "Lluvia moderada",
+        icono: "rain.svg"
+    },
+    "65": {
+        texto: "Lluvia fuerte",
+        icono: "extreme-rain.svg"
+    },
+    "66": {
+        texto: "Lluvia helada ligera",
+        icono: "freezing-rain.svg"
+    },
+    "67": {
+        texto: "Lluvia helada fuerte",
+        icono: "freezing-rain.svg"
+    },
+    "71": {
+        texto: "Nevada ligera",
+        icono: "partly-cloudy-day-snow.svg"
+    },
+    "73": {
+        texto: "Nevada moderada",
+        icono: "snow.svg"
+    },
+    "75": {
+        texto: "Nevada fuerte",
+        icono: "extreme-snow.svg"
+    },
+    "77": {
+        texto: "Cinco por ciento / Granos de nieve",
+        icono: "snowflake.svg"
+    },
+    "80": {
+        texto: "Chubascos de lluvia ligeros",
+        icono: "partly-cloudy-day-rain.svg"
+    },
+    "81": {
+        texto: "Chubascos de lluvia moderados",
+        icono: "rain.svg"
+    },
+    "82": {
+        texto: "Chubascos de lluvia violentos",
+        icono: "extreme-rain.svg"
+    },
+    "85": {
+        texto: "Chubascos de nieve ligeros",
+        icono: "partly-cloudy-day-snow.svg"
+    },
+    "86": {
+        texto: "Chubascos de nieve fuertes",
+        icono: "extreme-snow.svg"
+    },
+    "95": {
+        texto: "Tormenta",
+        icono: "thunderstorms.svg"
+    },
+    "96": {
+        texto: "Tormenta con granizo ligero",
+        icono: "thunderstorms-rain.svg"
+    },
+    "97": {
+        texto: "Tormenta fuerte",
+        icono: "extreme-thunderstorms.svg"
+    },
+    "99": {
+        texto: "Tormenta con granizo fuerte",
+        icono: "severe-thunderstorm.svg"
+    }
+};
+
 
 const lugares = {
     Merida : 'https://api.open-meteo.com/v1/forecast?latitude=38.918&longitude=-6.3429&current=weather_code,temperature_2m,relative_humidity_2m,wind_speed_10m&timezone=auto',
@@ -58,13 +149,18 @@ const obtenerDatos = async () => {
         }
         const datos = await respuesta.json();
 
+        const codigoClima = datos.current.weather_code.toString();
+        const infoEstado = conjunto_de_estados[codigoClima]
+
         ciudadElement.textContent=selectElement.value
         temperaturaElement.textContent=datos.current.temperature_2m
         humedadElement.textContent=datos.current.relative_humidity_2m
         vientoElement.textContent=datos.current.wind_speed_10m
         horaElement.textContent=datos.current.time
-        estadoElement.textContent = conjunto_de_estados[datos.current.weather_code]
+        estadoElement.textContent = infoEstado.texto
 
+        const nombreArchivoIcono = infoEstado.icono;
+        imgElement.src = `img/${nombreArchivoIcono}`;
 
     } catch (error) {
         console.error('No se ha podido consultar el tiempo. Error:', error);
